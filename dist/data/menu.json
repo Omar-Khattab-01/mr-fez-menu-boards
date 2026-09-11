@@ -1,0 +1,947 @@
+{
+  "schemaVersion": 1,
+  "brand": {
+    "name": "Mr. Fez",
+    "logoAssetId": "logo",
+    "colours": {
+      "red": "#e52320",
+      "white": "#ffffff",
+      "charcoal": "#171719"
+    },
+    "fontStatus": "Approximate system condensed headline and sans-serif body; exact fonts unknown."
+  },
+  "currency": "CAD",
+  "screens": [
+    {
+      "id": 1,
+      "name": "Wraps & sandwiches",
+      "physicalPosition": 1,
+      "sourceFile": "IMG_0490.HEIC",
+      "layout": "columns",
+      "mappingConfidence": "high-inferred",
+      "visible": true
+    },
+    {
+      "id": 2,
+      "name": "Platters & bowls",
+      "physicalPosition": 2,
+      "sourceFile": "IMG_0491.HEIC",
+      "layout": "two-column",
+      "mappingConfidence": "high-inferred",
+      "visible": true
+    },
+    {
+      "id": 3,
+      "name": "Poutines & sides",
+      "physicalPosition": 3,
+      "sourceFile": "IMG_0492.HEIC",
+      "layout": "two-row",
+      "mappingConfidence": "high-inferred",
+      "visible": true
+    },
+    {
+      "id": 4,
+      "name": "Family meals",
+      "physicalPosition": 4,
+      "sourceFile": "IMG_0493.HEIC",
+      "layout": "family",
+      "mappingConfidence": "high-inferred",
+      "visible": true
+    }
+  ],
+  "items": [
+    {
+      "id": "classic-shawarma",
+      "name": "Classic Shawarma",
+      "category": "Wraps & sandwiches",
+      "price": 11.99,
+      "currency": "CAD",
+      "description": "Juicy grilled chicken, pickles, and garlic sauce wrapped to perfection.",
+      "visible": true,
+      "available": true,
+      "screenId": 1,
+      "sortOrder": 1,
+      "variants": [],
+      "combo": {
+        "label": "COMBO!",
+        "priceDelta": 5.99,
+        "includes": null,
+        "noteId": "combo-contents"
+      },
+      "addOns": [],
+      "imageAssetId": "classic-shawarma",
+      "source": {
+        "file": "IMG_0490.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "donair-wrap",
+      "name": "Donair Wrap",
+      "category": "Wraps & sandwiches",
+      "price": 10.99,
+      "currency": "CAD",
+      "description": "Tender spiced beef, fresh veggies, and sweet garlic sauce in a grilled pita.",
+      "visible": true,
+      "available": false,
+      "screenId": 1,
+      "sortOrder": 2,
+      "variants": [],
+      "combo": {
+        "label": "COMBO!",
+        "priceDelta": 5.99,
+        "includes": null,
+        "noteId": "combo-contents"
+      },
+      "addOns": [],
+      "imageAssetId": "donair-wrap",
+      "source": {
+        "file": "IMG_0490.HEIC",
+        "confidence": "high"
+      },
+      "availabilityNote": "Handwritten “NOT AVAILABLE” note on source photo; current status requires confirmation."
+    },
+    {
+      "id": "falafel-wrap",
+      "name": "Falafel Wrap",
+      "category": "Wraps & sandwiches",
+      "price": 9.99,
+      "currency": "CAD",
+      "description": "Crispy falafel, fresh veggies, and tahini in a warm pita.",
+      "visible": true,
+      "available": true,
+      "screenId": 1,
+      "sortOrder": 3,
+      "variants": [],
+      "combo": {
+        "label": "COMBO!",
+        "priceDelta": 5.99,
+        "includes": null,
+        "noteId": "combo-contents"
+      },
+      "addOns": [],
+      "imageAssetId": "falafel-wrap",
+      "source": {
+        "file": "IMG_0490.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "istanbul-basha",
+      "name": "Istanbul Basha",
+      "category": "Wraps & sandwiches",
+      "price": 14.99,
+      "currency": "CAD",
+      "description": "Turkish style shawarma with doner ka bread",
+      "visible": true,
+      "available": true,
+      "screenId": 1,
+      "sortOrder": 4,
+      "variants": [],
+      "combo": {
+        "label": "COMBO!",
+        "priceDelta": 5.99,
+        "includes": null,
+        "noteId": "combo-contents"
+      },
+      "addOns": [],
+      "imageAssetId": "istanbul-basha",
+      "source": {
+        "file": "IMG_0490.HEIC",
+        "confidence": "high",
+        "fieldConfidence": {
+          "name": "high",
+          "price": "high",
+          "description": "needs-confirmation"
+        }
+      },
+      "noteIds": [
+        "istanbul-wording"
+      ]
+    },
+    {
+      "id": "francesco-sub",
+      "name": "Francesco Sub",
+      "category": "Wraps & sandwiches",
+      "price": 14.99,
+      "currency": "CAD",
+      "description": "Grilled chicken, melted cheese, and sautéed peppers in a toasted sub.",
+      "visible": true,
+      "available": true,
+      "screenId": 1,
+      "sortOrder": 5,
+      "variants": [],
+      "combo": {
+        "label": "COMBO!",
+        "priceDelta": 5.99,
+        "includes": null,
+        "noteId": "combo-contents"
+      },
+      "addOns": [],
+      "imageAssetId": "francesco-sub",
+      "source": {
+        "file": "IMG_0490.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "classic-platter",
+      "name": "Classic Platter",
+      "category": "Platters & bowls",
+      "price": 18.5,
+      "currency": "CAD",
+      "description": "Grilled chicken or beef, rice, salad, garlic potatoes & a drink.",
+      "visible": true,
+      "available": true,
+      "screenId": 2,
+      "sortOrder": 1,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "classic-platter",
+      "source": {
+        "file": "IMG_0491.HEIC",
+        "confidence": "high"
+      },
+      "options": [
+        {
+          "label": "Protein",
+          "choices": [
+            "Chicken",
+            "Beef"
+          ],
+          "priceDelta": null
+        }
+      ]
+    },
+    {
+      "id": "mr-fez-platter",
+      "name": "Mr Fez Platter",
+      "category": "Platters & bowls",
+      "price": 18.99,
+      "currency": "CAD",
+      "description": "Three stuffed pockets with chicken, beef & cheesy chicken.",
+      "visible": true,
+      "available": true,
+      "screenId": 2,
+      "sortOrder": 2,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "mr-fez-platter",
+      "source": {
+        "file": "IMG_0491.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "arabic-platter",
+      "name": "Arabic Platter",
+      "category": "Platters & bowls",
+      "price": 19.5,
+      "currency": "CAD",
+      "description": "XL wrap pieces with two sides & a drink.",
+      "visible": true,
+      "available": true,
+      "screenId": 2,
+      "sortOrder": 3,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "arabic-platter",
+      "source": {
+        "file": "IMG_0491.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "shawarma-salad",
+      "name": "Shawarma Salad",
+      "category": "Platters & bowls",
+      "price": 13.99,
+      "currency": "CAD",
+      "description": "Fresh salad topped with chicken or beef shawarma.",
+      "visible": true,
+      "available": true,
+      "screenId": 2,
+      "sortOrder": 4,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "shawarma-salad",
+      "source": {
+        "file": "IMG_0491.HEIC",
+        "confidence": "high"
+      },
+      "options": [
+        {
+          "label": "Protein",
+          "choices": [
+            "Chicken",
+            "Beef"
+          ],
+          "priceDelta": null
+        }
+      ]
+    },
+    {
+      "id": "falafel-platter",
+      "name": "Falafel Platter",
+      "category": "Platters & bowls",
+      "price": 15.5,
+      "currency": "CAD",
+      "description": "Falafel, rice, salad, potatoes & a drink.",
+      "visible": true,
+      "available": true,
+      "screenId": 2,
+      "sortOrder": 5,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "falafel-platter",
+      "source": {
+        "file": "IMG_0491.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "power-bowl",
+      "name": "Power Bowl",
+      "category": "Platters & bowls",
+      "price": 13.99,
+      "currency": "CAD",
+      "description": "Rice bowl with your choice of toppings & shawarma.",
+      "visible": true,
+      "available": true,
+      "screenId": 2,
+      "sortOrder": 6,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "power-bowl",
+      "source": {
+        "file": "IMG_0491.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "dynamite-fries",
+      "name": "Dynamite Fries",
+      "category": "Fries & poutines",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 1,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 11.99,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 14.99,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "dynamite-fries",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "classic-poutine",
+      "name": "Classic Poutine",
+      "category": "Fries & poutines",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 2,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 8.99,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 10.99,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "classic-poutine",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "francesco-poutine",
+      "name": "Francesco Poutine",
+      "category": "Fries & poutines",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 3,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 12.99,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 16.99,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "francesco-poutine",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "shawarma-poutine",
+      "name": "Shawarma Poutine",
+      "category": "Fries & poutines",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 4,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 11.99,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 15.99,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "shawarma-poutine",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "cig-kofte",
+      "name": "Cig Kofte",
+      "category": "Cig Kofte",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 5,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 7.99,
+          "kind": "size"
+        },
+        {
+          "id": "combo",
+          "label": "Combo",
+          "price": 13.99,
+          "kind": "bundle"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "cig-kofte",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      },
+      "noteIds": [
+        "cig-kofte-combo"
+      ]
+    },
+    {
+      "id": "side-rice",
+      "name": "Side Rice",
+      "category": "Sides",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 6,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 5.5,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 9.5,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "side-rice",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "side-potatoes",
+      "name": "Side Potatoes",
+      "category": "Sides",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 7,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 5.5,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 9.5,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "side-potatoes",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "side-salad",
+      "name": "Side Salad",
+      "category": "Sides",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 8,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 5.5,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 9.5,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "side-salad",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "side-fries",
+      "name": "Side Fries",
+      "category": "Sides",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 9,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 5.5,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 9.5,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "side-fries",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "side-garlic",
+      "name": "Side Garlic",
+      "category": "Sides",
+      "price": null,
+      "currency": "CAD",
+      "description": "",
+      "visible": true,
+      "available": true,
+      "screenId": 3,
+      "sortOrder": 10,
+      "variants": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "price": 0.99,
+          "kind": "size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 4.5,
+          "kind": "size"
+        }
+      ],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "side-garlic",
+      "source": {
+        "file": "IMG_0492.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "arabic-family-meal",
+      "name": "Arabic Family Meal",
+      "category": "Family meals",
+      "price": 75.0,
+      "currency": "CAD",
+      "description": "4 XL SAJ WRAPS CUT IN PIECES FOR YOUR PARTY OR FEAST. COMES WITH FRIES, SALAD, AND 4 DRINKS",
+      "visible": true,
+      "available": true,
+      "screenId": 4,
+      "sortOrder": 1,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "arabic-family-meal",
+      "source": {
+        "file": "IMG_0493.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "mr-fez-family",
+      "name": "Mr. Fez Family",
+      "category": "Family meals",
+      "price": 69.99,
+      "currency": "CAD",
+      "description": "12 POCKETS (4 CHICKEN, 4 BEEF, 4 CHEESY CHICKEN) COMES WITH FRIES, SALAD AND 4 DRINKS",
+      "visible": true,
+      "available": true,
+      "screenId": 4,
+      "sortOrder": 2,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "mr-fez-family",
+      "source": {
+        "file": "IMG_0493.HEIC",
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "rice-family-platter",
+      "name": "Rice Family Platter",
+      "category": "Family meals",
+      "price": 64.99,
+      "currency": "CAD",
+      "description": "RICE FAMILY PLATTER FOR 4, INCLUDE GARLIC POTATO, SALAD AND DRINKS",
+      "visible": true,
+      "available": true,
+      "screenId": 4,
+      "sortOrder": 3,
+      "variants": [],
+      "combo": null,
+      "addOns": [],
+      "imageAssetId": "rice-family-platter",
+      "source": {
+        "file": "IMG_0493.HEIC",
+        "confidence": "high"
+      }
+    }
+  ],
+  "promotions": [
+    {
+      "id": "family-heading",
+      "screenId": 4,
+      "text": "OUR FEZ FAMILY MEALS",
+      "visible": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "family-order",
+      "screenId": 4,
+      "text": "ORDER FOR 4, 8 OR MORE!",
+      "visible": true,
+      "sortOrder": 2
+    },
+    {
+      "id": "instagram",
+      "screenId": 4,
+      "text": "mr.fez__canada",
+      "visible": true,
+      "sortOrder": 3,
+      "noteId": "social",
+      "source": {
+        "file": "IMG_0493.HEIC",
+        "confidence": "needs-confirmation"
+      }
+    }
+  ],
+  "assets": [
+    {
+      "id": "classic-shawarma",
+      "label": "Classic Shawarma photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "donair-wrap",
+      "label": "Donair Wrap photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "falafel-wrap",
+      "label": "Falafel Wrap photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "istanbul-basha",
+      "label": "Istanbul Basha photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "francesco-sub",
+      "label": "Francesco Sub photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "classic-platter",
+      "label": "Classic Platter photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "mr-fez-platter",
+      "label": "Mr Fez Platter photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "arabic-platter",
+      "label": "Arabic Platter photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "shawarma-salad",
+      "label": "Shawarma Salad photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "falafel-platter",
+      "label": "Falafel Platter photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "power-bowl",
+      "label": "Power Bowl photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "dynamite-fries",
+      "label": "Dynamite Fries photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "classic-poutine",
+      "label": "Classic Poutine photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "francesco-poutine",
+      "label": "Francesco Poutine photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "shawarma-poutine",
+      "label": "Shawarma Poutine photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "cig-kofte",
+      "label": "Cig Kofte photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "side-rice",
+      "label": "Side Rice photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "side-potatoes",
+      "label": "Side Potatoes photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "side-salad",
+      "label": "Side Salad photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "side-fries",
+      "label": "Side Fries photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "side-garlic",
+      "label": "Side Garlic photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "arabic-family-meal",
+      "label": "Arabic Family Meal photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "mr-fez-family",
+      "label": "Mr. Fez Family photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "rice-family-platter",
+      "label": "Rice Family Platter photo",
+      "status": "needed",
+      "src": null
+    },
+    {
+      "id": "logo",
+      "label": "Official Mr. Fez logo and fez mark",
+      "status": "needed",
+      "src": null
+    }
+  ],
+  "developmentNotes": [
+    {
+      "id": "combo-contents",
+      "text": "TV 1 shows COMBO! +5.99 for all five products. Contents are not stated. Do not assume fries, a drink, or a size."
+    },
+    {
+      "id": "donair-status",
+      "text": "Donair Wrap has a handwritten NOT AVAILABLE note. Seed available=false; confirm before restoring availability."
+    },
+    {
+      "id": "istanbul-wording",
+      "text": "Istanbul Basha description appears to say “Turkish style shawarma with doner ka bread”. Retained literally; the bread wording needs confirmation rather than correction."
+    },
+    {
+      "id": "cig-kofte-combo",
+      "text": "Cig Kofte has Regular $7.99 and Combo $13.99. Combo is a total price, not a +$13.99 surcharge. Contents are not stated."
+    },
+    {
+      "id": "unknown-options",
+      "text": "No standalone priced add-ons are shown. Side Garlic is a side product. Protein choices are stated for Classic Platter and Shawarma Salad; modifiers and price differences are not specified. Power Bowl toppings, Arabic Platter side choices, and drink types/sizes are unspecified."
+    },
+    {
+      "id": "family-servings",
+      "text": "ORDER FOR 4, 8 OR MORE! is promotional copy, not evidence of an 8-person price. Rice Family Platter explicitly serves 4; no drink count is specified for it."
+    },
+    {
+      "id": "currency-tax",
+      "text": "Photos use $. CAD is an application assumption based on Ottawa. Tax inclusion is not stated; no tax claim or calculated tax is seeded."
+    },
+    {
+      "id": "mapping",
+      "text": "TV order is inferred with high confidence from neighboring board fragments: 0490 → 0491 → 0492 → 0493. Exact device identities and final physical numbering are unconfirmed."
+    },
+    {
+      "id": "brand-colour",
+      "text": "TV 1 has a strong blue cast in photographed pale panels and lettering. Use red/white/charcoal consistently based on TVs 2–4; exact brand colour values need source artwork."
+    },
+    {
+      "id": "social",
+      "text": "Instagram handle appears as mr.fez__canada (two underscores). Verify the separator against the official account before making it a link."
+    },
+    {
+      "id": "categories",
+      "text": "Category labels are inferred for admin organization; the original boards largely use individual product headings. Names preserve the source spelling Francesco and Cig Kofte."
+    }
+  ]
+}
