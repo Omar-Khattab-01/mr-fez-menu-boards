@@ -1,4 +1,4 @@
-import { animationSettings, wallPhase, presentationPhase } from './wall-timing.js';
+import { animationSettings, wallPhase, presentationPhase, videoSource } from './wall-timing.js';
 const app=document.querySelector('#app');
 let menu,view='boards',selected=1,editing=null;
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -26,7 +26,7 @@ try{const r=await fetch('data/menu.json');if(!r.ok)throw Error('Menu data could 
 function effectViewport(screen) {
   return `<div class="tv-viewport" data-position="${screen.physicalPosition}">
     ${board(screen)}
-    ${menu.animation?.video?.enabled&&screen.visible?`<video class="tv-video" src="${e(menu.animation.video.src)}" muted playsinline preload="auto" aria-label="Saj shawarma animation with Mr. Fez logo"></video>`:''}
+    ${menu.animation?.video?.enabled&&screen.visible?`<video class="tv-video" src="${e(videoSource(menu.animation,screen.physicalPosition))}" muted playsinline preload="auto" aria-label="Saj shawarma animation with Mr. Fez logo"></video>`:''}
     <div class="effect-overlay" aria-hidden="true">
       <div class="effect-veil"></div>
       <div class="effect-world" style="left:${-(screen.physicalPosition-1)*100}%">
@@ -42,28 +42,28 @@ function renderWall() {
   const config=animationSettings(menu.animation);
   const ordered=[...menu.screens].sort((a,b)=>a.physicalPosition-b.physicalPosition);
   app.innerHTML=`<div class="heading"><div><h1>Shawarma animations across four TVs</h1>
-    <p class="muted">A flame pass and the branded saj shawarma video alternate, with time to read the menus between them.</p></div>
-    <div class="actions"><button id="demo">Preview flames</button>${config.video?.enabled?'<button id="demo-video" class="primary">Preview saj video</button>':''}<button id="wall-fullscreen">Full screen</button></div></div>
+    <p class="muted">Fire to Fez travels left to right across four TVs, with time to read the menus between showings.</p></div>
+    <div class="actions">${config.mode==='flame-parade'?'<button id="demo">Preview flames</button>':''}${config.video?.enabled?'<button id="demo-video" class="primary">Preview wall animation</button>':''}<button id="wall-fullscreen">Full screen</button></div></div>
     <div class="wall-labels">${ordered.map(s=>`<a href="?screen=${s.physicalPosition}">TV ${s.physicalPosition}${s.physicalPosition===1?' · Left':s.physicalPosition===4?' · Right':''}</a>`).join('')}</div>
     <div class="wall-preview">${ordered.map(effectViewport).join('')}</div>
-    <div class="caption"><span id="animation-status" role="status">Shared TV schedule</span><span>Flames travel right to left · Video plays on all TVs</span></div>
-    ${config.video?.src?`<div class="panel"><h2>Saj shawarma · Mr. Fez</h2><video class="clip-player" controls playsinline preload="metadata" src="${e(config.video.src)}" aria-label="Play the saj shawarma video with Mr. Fez logo"></video><p class="muted"><a href="${e(config.video.src)}" download>Download the video</a> · 10 seconds · Includes your logo</p></div>`:''}
+    <div class="caption"><span id="animation-status" role="status">Shared TV schedule</span><span>One panoramic scene · A different section on each TV</span></div>
+    ${config.video?.src?`<div class="panel"><h2>Fire to Fez · Mr. Fez</h2><video class="clip-player" style="${config.mode==='panoramic-video'?'aspect-ratio:64/9;max-width:none':''}" controls playsinline preload="metadata" src="${e(config.video.src)}" aria-label="Play the saj shawarma video with Mr. Fez logo"></video><p class="muted"><a href="${e(config.video.src)}" download>Download the video</a> · ${config.video.durationSeconds} seconds · Includes your logo</p></div>`:''}
     <div class="panel"><h2>Animation settings</h2><form id="animation-settings">
     <label class="check"><input type="checkbox" name="enabled" ${config.enabled?'checked':''}>Enable animation rotation</label>
-    ${config.video?`<label class="check"><input type="checkbox" name="videoEnabled" ${config.video.enabled?'checked':''}>Include saj shawarma video</label>`:''}
+    ${config.video?`<label class="check"><input type="checkbox" name="videoEnabled" ${config.video.enabled?'checked':''}>Include panoramic animation</label>`:''}
     <label>Time between effects (seconds)<input type="number" name="quietSeconds" min="10" max="600" required value="${config.quietSeconds}"></label>
-    <label>Travel duration (seconds)<input type="number" name="effectSeconds" min="8" max="40" required value="${config.effectSeconds}"></label>
-    <label>Flame intensity (%)<input type="number" name="intensity" min="10" max="100" required value="${Math.round(config.intensity*100)}"></label>
+    ${config.mode==='flame-parade'?`<label>Travel duration (seconds)<input type="number" name="effectSeconds" min="8" max="40" required value="${config.effectSeconds}"></label>
+    <label>Flame intensity (%)<input type="number" name="intensity" min="10" max="100" required value="${Math.round(config.intensity*100)}"></label>`:''}
     <div class="full actions"><button class="primary">Apply to preview</button><span class="muted">Export and publish the menu to apply settings to the TVs.</span></div>
     </form></div>
     <div class="panel"><h2>Connect your screens</h2><ol><li>Open each TV link above on its matching physical screen, with TV 1 on the left.</li><li>Enable automatic date and time on every player. They join the same schedule even if opened at different times.</li><li>Use full-screen mode and keep each screen page visible. Set every TV to the same aspect ratio and disable overscan.</li></ol>
     <p class="muted">The preview button runs a local demo; it does not trigger the remote TVs. Separate devices follow their clocks, so this is approximate synchronization rather than frame-locked video. For a seamless physical installation, use one computer driving all four displays or a synchronized signage player. <a href="sync-setup.md">Setup and timing adjustment</a></p></div>`;
-  app.querySelector('#demo').onclick=()=>{demoKind='flame';demoStartedAt=Date.now();startEffects()};
+  if(app.querySelector('#demo'))app.querySelector('#demo').onclick=()=>{demoKind='flame';demoStartedAt=Date.now();startEffects()};
   if(app.querySelector('#demo-video'))app.querySelector('#demo-video').onclick=()=>{demoKind='video';demoStartedAt=Date.now();startEffects()};
   app.querySelector('#wall-fullscreen').onclick=()=>app.querySelector('.wall-preview').requestFullscreen?.().catch(()=>notify('Full screen is unavailable in this preview.'));
   app.querySelector('#animation-settings').onsubmit=event=>{
     event.preventDefault();const values=new FormData(event.target);
-    try {menu.animation=animationSettings({...config,...(config.video?{video:{...config.video,enabled:values.has('videoEnabled')}}:{}),enabled:values.has('enabled'),quietSeconds:Number(values.get('quietSeconds')),effectSeconds:Number(values.get('effectSeconds')),intensity:Number(values.get('intensity'))/100});demoStartedAt=null;render();notify('Animation settings applied to this preview.');}
+    try {menu.animation=animationSettings({...config,...(config.video?{video:{...config.video,enabled:values.has('videoEnabled')}}:{}),enabled:values.has('enabled'),quietSeconds:Number(values.get('quietSeconds')),effectSeconds:values.has('effectSeconds')?Number(values.get('effectSeconds')):config.effectSeconds,intensity:values.has('intensity')?Number(values.get('intensity'))/100:config.intensity});demoStartedAt=null;render();notify('Animation settings applied to this preview.');}
     catch(error){notify(error.message)}
   };
   startEffects();
@@ -81,7 +81,7 @@ function startEffects() {
     const off=param.get('motion')==='off'||(reducedMotion.matches&&param.get('motion')!=='on');
     let now=Date.now()+clockOffset;
     let demo=demoStartedAt!==null;
-    if(demo){const elapsed=Date.now()-demoStartedAt;const duration=demoKind==='video'?(config.video?.durationSeconds||10):config.effectSeconds;if(elapsed>=duration*1000){demoStartedAt=null;demo=false;}else{now=config.epochMs+config.quietSeconds*1000+elapsed+(demoKind==='video'?(config.quietSeconds+config.effectSeconds)*1000:0);}}
+    if(demo){const elapsed=Date.now()-demoStartedAt;const duration=demoKind==='video'?(config.video?.durationSeconds||10):config.effectSeconds;if(elapsed>=duration*1000){demoStartedAt=null;demo=false;}else{now=config.epochMs+config.quietSeconds*1000+elapsed+(demoKind==='video'&&config.mode!=='panoramic-video'?(config.quietSeconds+config.effectSeconds)*1000:0);}}
     const activeConfig={...config,enabled:config.enabled&&!off};
     const slot=presentationPhase(now,activeConfig);
     const phase=wallPhase(slot.flameNow,activeConfig);
@@ -106,7 +106,7 @@ function startEffects() {
         for(const edge of target.edges){edge.style.backgroundPositionX=`${phase.flameDrift}%`;edge.style.setProperty('--flame-scale',phase.flameScale);}
       }
     }
-    const message=off?'Animation off on this device (motion preference).':!config.enabled?'Animation disabled.':demo?'Local demo · remote TVs keep their shared schedule':slot.kind==='video'?`Saj video · ${Math.ceil(slot.remainingMs/1000)} seconds remaining${targets.some(t=>t.blocked||t.video?.error)?' · Video unavailable on a player; menu retained':''}`:slot.kind==='flame'?`Live flame effect · ${Math.ceil(slot.remainingMs/1000)} seconds remaining`:`Shared schedule · next animation in ${Math.ceil(slot.remainingMs/1000)} seconds`;
+    const message=off?'Animation off on this device (motion preference).':!config.enabled?'Animation disabled.':demo?'Local demo · remote TVs keep their shared schedule':slot.kind==='video'?`Wall animation · ${Math.ceil(slot.remainingMs/1000)} seconds remaining${targets.some(t=>t.blocked||t.video?.error)?' · Video unavailable on a player; menu retained':''}`:slot.kind==='flame'?`Live flame effect · ${Math.ceil(slot.remainingMs/1000)} seconds remaining`:`Shared schedule · next animation in ${Math.ceil(slot.remainingMs/1000)} seconds`;
     if(status&&message!==lastStatus){status.textContent=message;lastStatus=message;}
     animationFrame=requestAnimationFrame(tick);
   }

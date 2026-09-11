@@ -946,16 +946,22 @@
   ],
   "animation": {
     "enabled": true,
-    "mode": "flame-parade",
-    "direction": "right-to-left",
+    "mode": "panoramic-video",
+    "direction": "left-to-right",
     "quietSeconds": 40,
     "effectSeconds": 16,
     "intensity": 0.85,
     "epochMs": 1767225600000,
     "video": {
       "enabled": true,
-      "src": "assets/saj-shawarma.mp4",
-      "durationSeconds": 10
+      "src": "fire-to-fez/fire-to-fez-panorama.mp4",
+      "durationSeconds": 20,
+      "screenSources": [
+        "fire-to-fez/fire-to-fez-tv-1.mp4",
+        "fire-to-fez/fire-to-fez-tv-2.mp4",
+        "fire-to-fez/fire-to-fez-tv-3.mp4",
+        "fire-to-fez/fire-to-fez-tv-4.mp4"
+      ]
     }
   }
 }

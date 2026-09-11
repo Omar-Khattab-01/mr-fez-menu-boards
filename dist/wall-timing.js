@@ -1,3 +1,4 @@
+const localVideo = src => typeof src==='string' && /^(assets|fire-to-fez)\/[a-zA-Z0-9_/-]+\.mp4$/.test(src) && !src.includes('..');
 // Shared UTC schedule: opening/reloading a TV never restarts its effect.
 export const DEFAULT_ANIMATION = Object.freeze({
   enabled: true,
@@ -11,8 +12,8 @@ export const DEFAULT_ANIMATION = Object.freeze({
 
 export function animationSettings(value = {}) {
   const settings = { ...DEFAULT_ANIMATION, ...value };
-  if (typeof settings.enabled !== 'boolean' || settings.mode !== 'flame-parade' ||
-      settings.direction !== 'right-to-left' ||
+  if (typeof settings.enabled !== 'boolean' || !['flame-parade','panoramic-video'].includes(settings.mode) ||
+      settings.direction !== (settings.mode==='panoramic-video'?'left-to-right':'right-to-left') ||
       !Number.isFinite(settings.quietSeconds) || settings.quietSeconds < 10 || settings.quietSeconds > 600 ||
       !Number.isFinite(settings.effectSeconds) || settings.effectSeconds < 8 || settings.effectSeconds > 40 ||
       !Number.isFinite(settings.intensity) || settings.intensity < 0.1 || settings.intensity > 1 ||
@@ -20,9 +21,14 @@ export function animationSettings(value = {}) {
     throw new Error('Animation needs a 10–600 second interval, 8–40 second duration, intensity 0.1–1 and a valid UTC epoch.');
   }
   if (settings.video && (typeof settings.video.enabled !== 'boolean' ||
-      typeof settings.video.src !== 'string' || !/^assets\/[a-zA-Z0-9_/-]+\.mp4$/.test(settings.video.src) || settings.video.src.includes('..') ||
+      typeof settings.video.src !== 'string' || !localVideo(settings.video.src) || settings.video.src.includes('..') ||
       !Number.isFinite(settings.video.durationSeconds) || settings.video.durationSeconds < 1 || settings.video.durationSeconds > 60)) {
     throw new Error('Video needs a local MP4 asset, an enabled setting and a 1–60 second duration.');
+  }
+  if (settings.mode==='panoramic-video' && (!settings.video ||
+      !Array.isArray(settings.video.screenSources) || settings.video.screenSources.length!==4 ||
+      new Set(settings.video.screenSources).size!==4 || !settings.video.screenSources.every(localVideo))) {
+    throw new Error('Panoramic video needs four distinct local MP4 screen sections.');
   }
   return settings;
 }
@@ -65,6 +71,14 @@ export function presentationPhase(nowMs, value) {
   const settings = animationSettings(value);
   if (!Number.isFinite(nowMs)) throw new Error('Invalid presentation clock.');
   const quiet = settings.quietSeconds * 1000;
+  if(settings.mode==='panoramic-video') {
+    const duration=settings.video.durationSeconds*1000;
+    const elapsed=((nowMs-settings.epochMs)%(quiet+duration)+quiet+duration)%(quiet+duration);
+    if(!settings.enabled||!settings.video.enabled) return {kind:'quiet',remainingMs:0,videoTime:0,flameNow:settings.epochMs};
+    return elapsed<quiet
+      ? {kind:'quiet',remainingMs:quiet-elapsed,videoTime:0,flameNow:settings.epochMs}
+      : {kind:'video',remainingMs:quiet+duration-elapsed,videoTime:(elapsed-quiet)/1000,flameNow:settings.epochMs};
+  }
   const flame = settings.effectSeconds * 1000;
   const clip = settings.video?.enabled ? settings.video.durationSeconds * 1000 : 0;
   const total = quiet + flame + (clip ? quiet + clip : 0);
@@ -74,4 +88,10 @@ export function presentationPhase(nowMs, value) {
   if (elapsed < quiet+flame) return { kind:'flame', remainingMs:quiet+flame-elapsed, videoTime:0, flameNow:settings.epochMs+elapsed };
   if (elapsed < quiet+flame+quiet) return { kind:'quiet', remainingMs:quiet+flame+quiet-elapsed, videoTime:0, flameNow:settings.epochMs };
   return { kind:'video', remainingMs:total-elapsed, videoTime:(elapsed-quiet-flame-quiet)/1000, flameNow:settings.epochMs };
+}
+
+export function videoSource(value, physicalPosition) {
+  const config=animationSettings(value);
+  if(!Number.isInteger(physicalPosition)||physicalPosition<1||physicalPosition>4) throw new Error('TV position must be 1–4.');
+  return config.mode==='panoramic-video'?config.video.screenSources[physicalPosition-1]:config.video?.src;
 }

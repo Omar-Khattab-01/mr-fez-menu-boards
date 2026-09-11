@@ -23,7 +23,8 @@ print(f"Validated {len(m['items'])} products across four configurable screens.")
 
 video = m.get('animation', {}).get('video')
 if video and video['enabled']:
-    asset = root / 'dist' / video['src']
-    assert asset.is_file() and asset.stat().st_size > 1024
-    with asset.open('rb') as f:
-        assert f.read(12)[4:8] == b'ftyp', 'Expected MP4 file'
+    for src in [video['src'], *video.get('screenSources', [])]:
+        asset = root / 'dist' / src
+        assert asset.is_file() and asset.stat().st_size > 1024
+        with asset.open('rb') as f:
+            assert f.read(12)[4:8] == b'ftyp', 'Expected MP4 file'

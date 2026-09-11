@@ -60,3 +60,25 @@ test('disabled or absent videos retain the original flame schedule',()=>{
  assert.equal(presentationPhase(config.epochMs+99500,{...videoConfig,enabled:false}).kind,'quiet');
  assert.throws(()=>animationSettings({...config,video:{enabled:true,src:'https://invalid.test/file.mp4',durationSeconds:10}}));
 });
+
+import { readFileSync } from 'node:fs';
+import { videoSource } from '../dist/wall-timing.js';
+const panorama=JSON.parse(readFileSync(new URL('../dist/data/menu.json',import.meta.url))).animation;
+test('published panorama has one quiet interval and a full 20-second shared clip',()=>{
+ const at=t=>presentationPhase(panorama.epochMs+t,panorama);
+ assert.equal(at(39999).kind,'quiet');
+ assert.equal(at(40000).kind,'video');
+ assert.equal(at(43500).videoTime,3.5);
+ assert.equal(at(59999).kind,'video');
+ assert.equal(at(60000).kind,'quiet');
+ assert.deepEqual(at(43500),at(43500+60000*7));
+ assert.equal(presentationPhase(panorama.epochMs+45000,{...panorama,video:{...panorama.video,enabled:false}}).kind,'quiet');
+ for(let t=0;t<60000;t+=137) assert.notEqual(at(t).kind,'flame');
+});
+test('physical positions select distinct panorama quarters and reject incomplete mappings',()=>{
+ for(const position of [4,2,1,3]) assert.equal(videoSource(panorama,position),`fire-to-fez/fire-to-fez-tv-${position}.mp4`);
+ for(const screenSources of [[],['assets/a.mp4'],Array(4).fill('assets/a.mp4'),['assets/a.mp4','assets/b.mp4','assets/c.mp4','../evil.mp4']]) {
+  assert.throws(()=>animationSettings({...panorama,video:{...panorama.video,screenSources}}));
+ }
+ assert.throws(()=>videoSource(panorama,5));
+});
