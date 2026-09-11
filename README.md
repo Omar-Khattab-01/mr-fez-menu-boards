@@ -1,5 +1,7 @@
 # Mr. Fez Ottawa · Menu boards
 
+**[Open the live menu site](https://omar-khattab-01.github.io/mr-fez-menu-boards/)**
+
 Four-screen menu prototype populated from four owner-supplied menu photographs: 24 products, original prices, variants, descriptions, combo charges and family-meal wording. Donair Wrap starts unavailable because the photo carries a handwritten notice.
 
 - [Full extraction, original screen hierarchy and uncertainties](dist/extraction.md)
