@@ -1,9 +1,9 @@
 # Fire to Fez
 
-Status: Runway generation submitted; output must be reviewed before delivery.
+Status: Generated, reviewed, and exported; flat background flame overlay removed in revision 2.
 Task: e932df19-e2a5-4fd0-9bc8-fe7d56c18f6d
 Target: 20 seconds, four adjacent landscape TVs, left-to-right action.
-The generated source uses a central 64:9 composition inside a 21:9 frame. Verify framing before cropping. Cropped delivery is upscaled, not native 1080p per screen. Final logo overlay and screen exports remain pending.
+The generated source uses a central 64:9 composition inside a 21:9 frame. Verify framing before cropping. Cropped delivery is upscaled, not native 1080p per screen. The generated source ultimately required the compositing adaptation described below.
 
 ## Generation prompt
 
@@ -17,7 +17,7 @@ Animate the supplied FIRE TO FEZ storyboard into ONE continuous 20 second premiu
 
 ## Reviewed source and first composite
 
-The generation finished at 2206 × 946, 24 fps, about 20 seconds. It did not honor the requested central 64:9 framing and included some storyboard guides and a readable generated MR. FEZ badge. The first delivery therefore preserves the food's proportions in a feathered moving scene on a 3840 × 540 canvas, with the existing flame-band asset underneath. This is a composited adaptation, not a native 64:9 render or an exact realization of every storyboard beat. A late vertical guide is removed with FFmpeg delogo; upper/lower borders are cropped away. The generated final badge is retained rather than duplicated. Device-clock synchronization remains approximate when played through separate browsers.
+The generation finished at 2206 × 946, 24 fps, about 20 seconds. It did not honor the requested central 64:9 framing and included some storyboard guides and a readable generated MR. FEZ badge. The first delivery therefore preserves the food's proportions in a feathered moving scene on a 3840 × 540 canvas, on a plain dark background. This is a composited adaptation, not a native 64:9 render or an exact realization of every storyboard beat. A late vertical guide is removed with FFmpeg delogo; upper/lower borders are cropped away. The generated final badge is retained rather than duplicated. Device-clock synchronization remains approximate when played through separate browsers.
 
 The export script creates one 30 fps master and four 960 × 540 quarter-frame videos. Source footage is resampled, not native full HD per TV. No additional Runway jobs were submitted after the master.
 
@@ -26,3 +26,7 @@ The export script creates one 30 fps master and four 960 × 540 quarter-frame vi
 Built-in image generation also produced logo-overlay.png, a cleaned interpretation of the supplied photo. It is saved for future use; it is not added over the badge already present in this first composite.
 
 Prompt: Create a clean faithful flat logo asset from this Mr. Fez reference photograph. Isolate and straighten the round yellow badge; deep red fez hat with black tassel above exact bold black text 'MR. FEZ'. Preserve the recognizable reference hat shape and lettering. Remove wall, photograph perspective, textile texture, lighting, shadows. Crisp solid colors and smooth edges, true transparent background outside the circular yellow badge. Centered entire badge, generous transparent margin. This is a production overlay for a restaurant animation, no new slogan, no redesign, no 3D effects.
+
+## Revision 2 — remove background flames
+
+Removed the separate 2D flame-band layer at the owner’s request. The background is plain dark; fire, smoke, and embers that belong to the generated footage remain. Re-exported the panoramic master and all four TV sections from the same timeline. No new Runway generation or credits used.
