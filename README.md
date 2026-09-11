@@ -6,6 +6,10 @@
 
 [Watch or download the saj shawarma video](https://omar-khattab-01.github.io/mr-fez-menu-boards/assets/saj-shawarma.mp4)
 
+## Fire to Fez — panoramic animation review
+
+[Play the continuous four-TV animation](https://omar-khattab-01.github.io/mr-fez-menu-boards/fire-to-fez/) — 20-second first composite, moving left to right, with separate downloads for TVs 1–4 on the preview page. Each file contains a different quarter of one master (960 × 540, 30 fps, 600 frames). This review is separate from the current menu rotation. The generated scene was composited onto the panoramic canvas; it is not an exact shot-for-shot realization of the storyboard. [Production notes](dist/fire-to-fez/production-notes.md).
+
 ## Direct screen links
 
 - [TV 1 — Wraps & sandwiches](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=1)
