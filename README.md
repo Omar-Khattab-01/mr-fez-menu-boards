@@ -2,6 +2,17 @@
 
 **[Open the live menu site](https://omar-khattab-01.github.io/mr-fez-menu-boards/)**
 
+## Direct screen links
+
+- [TV 1 — Wraps & sandwiches](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=1)
+- [TV 2 — Platters & bowls](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=2)
+- [TV 3 — Poutines & sides](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=3)
+- [TV 4 — Family meals](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=4)
+
+These links open the screen-only views. The labels above reflect the initial screen mapping.
+
+## About
+
 Four-screen menu prototype populated from four owner-supplied menu photographs: 24 products, original prices, variants, descriptions, combo charges and family-meal wording. Donair Wrap starts unavailable because the photo carries a handwritten notice.
 
 - [Full extraction, original screen hierarchy and uncertainties](dist/extraction.md)
