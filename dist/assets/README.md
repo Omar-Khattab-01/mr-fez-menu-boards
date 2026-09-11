@@ -9,3 +9,7 @@ Use case: ads-marketing. Asset type: isolated transparent PNG hero for a restaur
 ## flame-band.png
 
 Use case: ads-marketing. Asset type: wide transparent flame band for a digital signage animation. Primary request: a beautiful wide low ribbon of realistic orange and amber cooking flames, with wispy flame tips curling upward and a few tiny glowing embers. Flames originate along the entire bottom edge, occupy mostly the lower half, top half is genuinely transparent. Wide landscape 3:1 composition, clear alpha background with no checkerboard, no black or white rectangle. Cinematic warm luminous fire, soft detailed tongues of flame, no smoke cloud, no other objects, no text, no logos. Designed as an atmospheric overlay along the lower edge of a restaurant TV.
+
+## saj-shawarma.mp4
+
+Completed Runway generation `410b26f5-a482-49e3-a4af-ceca831eb9b6`, supplied for this site by the owner. Original 10-second 1920×1080 silent H.264 output, stored locally for stable GitHub Pages hosting. Uses the owner-supplied yellow Mr. Fez logo photograph as a branding reference. This is generated decorative food artwork, not a verified restaurant product photograph.

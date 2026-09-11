@@ -19,3 +19,5 @@
 body.display .tv-viewport{width:min(100vw,177.777778vh);height:min(56.25vw,100vh);flex:none}
 body.display .tv-viewport>.board{width:100%;height:100%}
 @media(max-width:800px){nav{overflow-x:auto}.wall-labels{font-size:12px}.heading{flex-wrap:wrap}.wall-preview{gap:1px;border-width:1px}}
+.tv-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#171719;opacity:0;z-index:3;pointer-events:none}
+.clip-player{display:block;width:100%;max-width:900px;aspect-ratio:16/9;background:#171719;border-radius:6px;margin-top:16px}

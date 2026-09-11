@@ -41,3 +41,22 @@ test('disabled effects stay invisible; bad timing and imported values are reject
   }
   assert.throws(() => localHeroX(5, at(48000)));
 });
+
+import { presentationPhase } from '../dist/wall-timing.js';
+const videoConfig={...config,video:{enabled:true,src:'assets/saj-shawarma.mp4',durationSeconds:10}};
+test('rotation includes both reading breaks and a complete ten-second branded clip',()=>{
+ const at=t=>presentationPhase(config.epochMs+t,videoConfig);
+ assert.equal(at(39999).kind,'quiet');
+ assert.equal(at(40000).kind,'flame');
+ assert.equal(at(56000).kind,'quiet');
+ assert.equal(at(96000).kind,'video');
+ assert.equal(at(99500).videoTime,3.5);
+ assert.equal(at(105999).kind,'video');
+ assert.equal(at(106000).kind,'quiet');
+ assert.deepEqual(at(99500),at(99500+106000*3));
+});
+test('disabled or absent videos retain the original flame schedule',()=>{
+ assert.equal(presentationPhase(config.epochMs+96000,config).kind,'flame');
+ assert.equal(presentationPhase(config.epochMs+99500,{...videoConfig,enabled:false}).kind,'quiet');
+ assert.throws(()=>animationSettings({...config,video:{enabled:true,src:'https://invalid.test/file.mp4',durationSeconds:10}}));
+});

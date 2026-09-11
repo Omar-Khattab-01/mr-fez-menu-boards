@@ -19,6 +19,11 @@ export function animationSettings(value = {}) {
       !Number.isSafeInteger(settings.epochMs)) {
     throw new Error('Animation needs a 10–600 second interval, 8–40 second duration, intensity 0.1–1 and a valid UTC epoch.');
   }
+  if (settings.video && (typeof settings.video.enabled !== 'boolean' ||
+      typeof settings.video.src !== 'string' || !/^assets\/[a-zA-Z0-9_/-]+\.mp4$/.test(settings.video.src) || settings.video.src.includes('..') ||
+      !Number.isFinite(settings.video.durationSeconds) || settings.video.durationSeconds < 1 || settings.video.durationSeconds > 60)) {
+    throw new Error('Video needs a local MP4 asset, an enabled setting and a 1–60 second duration.');
+  }
   return settings;
 }
 
@@ -53,4 +58,20 @@ export function localHeroX(physicalPosition, phase) {
     throw new Error('TV position must be 1–4.');
   }
   return phase.x - (physicalPosition - 1);
+}
+
+// Alternate the existing flame pass with the branded video, preserving reading time.
+export function presentationPhase(nowMs, value) {
+  const settings = animationSettings(value);
+  if (!Number.isFinite(nowMs)) throw new Error('Invalid presentation clock.');
+  const quiet = settings.quietSeconds * 1000;
+  const flame = settings.effectSeconds * 1000;
+  const clip = settings.video?.enabled ? settings.video.durationSeconds * 1000 : 0;
+  const total = quiet + flame + (clip ? quiet + clip : 0);
+  const elapsed = ((nowMs-settings.epochMs)%total+total)%total;
+  if (!settings.enabled) return { kind:'quiet', remainingMs:0, videoTime:0, flameNow:settings.epochMs };
+  if (elapsed < quiet) return { kind:'quiet', remainingMs:quiet-elapsed, videoTime:0, flameNow:settings.epochMs };
+  if (elapsed < quiet+flame) return { kind:'flame', remainingMs:quiet+flame-elapsed, videoTime:0, flameNow:settings.epochMs+elapsed };
+  if (elapsed < quiet+flame+quiet) return { kind:'quiet', remainingMs:quiet+flame+quiet-elapsed, videoTime:0, flameNow:settings.epochMs };
+  return { kind:'video', remainingMs:total-elapsed, videoTime:(elapsed-quiet-flame-quiet)/1000, flameNow:settings.epochMs };
 }

@@ -2,7 +2,9 @@
 
 **[Open the live menu site](https://omar-khattab-01.github.io/mr-fez-menu-boards/)**
 
-**[Preview the four-TV flame animation](https://omar-khattab-01.github.io/mr-fez-menu-boards/?wall=1)** — choose “Preview effect now” to watch it immediately.
+**[Preview the four-TV flame animation](https://omar-khattab-01.github.io/mr-fez-menu-boards/?wall=1)** — choose “Preview saj video” or “Preview flames” to watch immediately.
+
+[Watch or download the saj shawarma video](https://omar-khattab-01.github.io/mr-fez-menu-boards/assets/saj-shawarma.mp4)
 
 ## Direct screen links
 
@@ -13,7 +15,7 @@
 
 These links open the screen-only views with a shared decorative animation schedule. Menus stay fixed while a flaming shawarma rotisserie passes from TV 4 to TV 1. The labels above reflect the initial screen mapping.
 
-Enable automatic date/time on all players. Default timing is 40 seconds of menu reading, then a 16-second effect. This is clock-aligned animation, not frame-locked hardware synchronization. [Setup, timing adjustment, motion controls and limitations](dist/sync-setup.md).
+Enable automatic date/time on all players. The rotation is 40 seconds of menu → 16 seconds of flames → 40 seconds of menu → 10 seconds of the saj shawarma video with the Mr. Fez logo (106 seconds total). The complete video plays on all four TVs simultaneously; it is not stretched across the wall. This is clock-aligned animation, not frame-locked hardware synchronization. [Setup, timing adjustment, motion controls and limitations](dist/sync-setup.md).
 
 ## About
 

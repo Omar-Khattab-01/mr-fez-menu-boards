@@ -951,6 +951,11 @@
     "quietSeconds": 40,
     "effectSeconds": 16,
     "intensity": 0.85,
-    "epochMs": 1767225600000
+    "epochMs": 1767225600000,
+    "video": {
+      "enabled": true,
+      "src": "assets/saj-shawarma.mp4",
+      "durationSeconds": 10
+    }
   }
 }

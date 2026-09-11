@@ -20,3 +20,10 @@ for i in m['items']:
 for f in ['index.html','style.css','app.js','extraction.md','assets-needed.md','wall-timing.js','sync-setup.md','assets/shawarma-fire.png','assets/flame-band.png']:
     assert (root / 'dist' / f).is_file(), f
 print(f"Validated {len(m['items'])} products across four configurable screens.")
+
+video = m.get('animation', {}).get('video')
+if video and video['enabled']:
+    asset = root / 'dist' / video['src']
+    assert asset.is_file() and asset.stat().st_size > 1024
+    with asset.open('rb') as f:
+        assert f.read(12)[4:8] == b'ftyp', 'Expected MP4 file'
