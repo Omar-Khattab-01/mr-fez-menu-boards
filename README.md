@@ -2,6 +2,8 @@
 
 **[Open the live menu site](https://omar-khattab-01.github.io/mr-fez-menu-boards/)**
 
+**[Preview the four-TV flame animation](https://omar-khattab-01.github.io/mr-fez-menu-boards/?wall=1)** — choose “Preview effect now” to watch it immediately.
+
 ## Direct screen links
 
 - [TV 1 — Wraps & sandwiches](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=1)
@@ -9,7 +11,9 @@
 - [TV 3 — Poutines & sides](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=3)
 - [TV 4 — Family meals](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=4)
 
-These links open the screen-only views. The labels above reflect the initial screen mapping.
+These links open the screen-only views with a shared decorative animation schedule. Menus stay fixed while a flaming shawarma rotisserie passes from TV 4 to TV 1. The labels above reflect the initial screen mapping.
+
+Enable automatic date/time on all players. Default timing is 40 seconds of menu reading, then a 16-second effect. This is clock-aligned animation, not frame-locked hardware synchronization. [Setup, timing adjustment, motion controls and limitations](dist/sync-setup.md).
 
 ## About
 
@@ -31,7 +35,7 @@ Open http://localhost:4173. The menu studio has board previews, an editor, confi
 
 ## Editing and persistence
 
-This is an initial static prototype hosted on GitHub Pages. Edits apply to memory in the current browser tab. Export to save, and Import to restore. There is no authenticated backend or live multi-device synchronization. The interface states this explicitly.
+This is an initial static prototype hosted on GitHub Pages. Edits apply to memory in the current browser tab. Export to save, and Import to restore. There is no authenticated backend or live shared admin storage. Decorative effects use the same UTC schedule on each player, with accuracy depending on device clocks. The interface distinguishes animation timing from remote menu editing.
 
 To update the hosted starting menu, replace `dist/data/menu.json` with a reviewed export, commit, and push to `main`. GitHub Actions publishes the `dist` folder. New loads receive the updated seed. Open TV pages must reload to receive a newly published version.
 
@@ -54,4 +58,4 @@ See [the production asset checklist](dist/assets-needed.md). The site uses tempo
 
 ## Scope and production follow-up
 
-Confirm flagged wording, combo contents, Donair availability, official fonts/colours, and source images. Add shared persistent storage, authenticated administration and device synchronization in a future functional production phase. GitHub Pages currently supplies a reviewable static prototype, not a production restaurant control system.
+Confirm flagged wording, combo contents, Donair availability, official fonts/colours, and source images. Add shared persistent storage, authenticated administration and remote device control in a future production phase. Verify the animation on the physical TVs and use synchronized signage hardware if frame-level alignment is required. GitHub Pages currently supplies a reviewable static prototype, not a production restaurant control system.

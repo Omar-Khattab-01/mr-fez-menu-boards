@@ -17,6 +17,6 @@ for i in m['items']:
         prices.append(i['combo']['priceDelta'])
     assert all(p is None or isinstance(p, (int, float)) and p >= 0 for p in prices)
     assert isinstance(i['visible'], bool) and isinstance(i['available'], bool)
-for f in ['index.html','style.css','app.js','extraction.md','assets-needed.md']:
+for f in ['index.html','style.css','app.js','extraction.md','assets-needed.md','wall-timing.js','sync-setup.md','assets/shawarma-fire.png','assets/flame-band.png']:
     assert (root / 'dist' / f).is_file(), f
 print(f"Validated {len(m['items'])} products across four configurable screens.")

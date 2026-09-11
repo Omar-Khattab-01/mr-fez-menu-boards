@@ -943,5 +943,14 @@
       "id": "categories",
       "text": "Category labels are inferred for admin organization; the original boards largely use individual product headings. Names preserve the source spelling Francesco and Cig Kofte."
     }
-  ]
+  ],
+  "animation": {
+    "enabled": true,
+    "mode": "flame-parade",
+    "direction": "right-to-left",
+    "quietSeconds": 40,
+    "effectSeconds": 16,
+    "intensity": 0.85,
+    "epochMs": 1767225600000
+  }
 }

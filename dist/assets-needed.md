@@ -42,3 +42,7 @@ Supply clean high-resolution photos, ideally with transparent backgrounds, for e
 ## Integration
 
 Place licensed production images in `dist/assets/`. Set the matching `assets[].src` in `dist/data/menu.json` to `assets/<filename>` (or an approved HTTPS URL), and set `status` to `ready`. Product records reference assets by `imageAssetId`. The official logo needs integration into the shared board header after it is supplied; current branding is a text placeholder. Avoid embedding prices or product text inside asset images.
+
+## Decorative animation assets now included
+
+`assets/shawarma-fire.png` and `assets/flame-band.png` are generated transparent artwork used only in the cross-screen flame effect. They do not replace any of the menu product photographs listed above. Generation provenance and prompts are in `assets/README.md`.
