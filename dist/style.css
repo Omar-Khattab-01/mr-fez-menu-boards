@@ -21,3 +21,19 @@ body.display .tv-viewport>.board{width:100%;height:100%}
 @media(max-width:800px){nav{overflow-x:auto}.wall-labels{font-size:12px}.heading{flex-wrap:wrap}.wall-preview{gap:1px;border-width:1px}}
 .tv-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#171719;opacity:0;z-index:3;pointer-events:none}
 .clip-player{display:block;width:100%;max-width:900px;aspect-ratio:16/9;background:#171719;border-radius:6px;margin-top:16px}
+
+/* Keep incomplete rows balanced after items are hidden or removed. */
+.board .board-items{display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:1.4cqw}
+.board.columns .item,.board.two-row .item{flex:0 0 calc((100% - 5.6cqw)/5)}
+.board.columns .item{height:100%}
+.board.columns .board-items:has(.item:nth-child(6)) .item{height:calc((100% - 1.4cqw)/2)}
+.board.two-column .item{flex:0 0 calc((100% - 1.4cqw)/2);height:calc((100% - 2.8cqw)/3)}
+.board.two-column .board-items:has(.item:nth-child(7)) .item{height:calc((100% - 4.2cqw)/4)}
+.board.two-row .item{height:calc((100% - 1.4cqw)/2)}
+.board.family .item{flex:0 0 calc((100% - 2.8cqw)/3);height:100%}
+.board.family .board-items:has(.item:nth-child(4)) .item{height:calc((100% - 1.4cqw)/2)}
+
+.picture-field input{display:block;padding:8px}
+.field-help{display:block;color:#616169;font-size:13px;line-height:1.45;margin-top:6px}
+.current-picture{display:flex;align-items:center;gap:16px;padding:12px;border:1px solid #ddd;border-radius:6px;background:#f6f6f7}
+.current-picture img{width:120px;height:80px;object-fit:contain;background:white;border-radius:4px}

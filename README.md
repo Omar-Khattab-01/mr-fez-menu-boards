@@ -45,7 +45,7 @@ This is an initial static prototype hosted on GitHub Pages. Edits apply to memor
 
 To update the hosted starting menu, replace `dist/data/menu.json` with a reviewed export, commit, and push to `main`. GitHub Actions publishes the `dist` folder. New loads receive the updated seed. Open TV pages must reload to receive a newly published version.
 
-Common product fields have a form. Use **Add item** inside a TV section to create an item on that screen; open an existing item to edit, move, mark unavailable, hide, or delete it. The Animation tab lets you choose which films participate in the rotation. The complete structured-data editor also exposes sizes, options, add-ons, promotions, screen configuration and assets. Prices are numeric; unknown values are `null`. Source metadata and development notes should be retained when editing.
+Common product fields have a form. Use **Add item** inside a TV section to create an item on that screen; open an existing item to edit, move, mark unavailable, hide, delete, or upload/replace its picture. Uploaded PNG, JPG, and WebP pictures are stored in the session menu data and included in JSON exports. When a screen has fewer items, incomplete rows stay centred. The Animation tab lets you choose which films participate in the rotation. The complete structured-data editor also exposes sizes, options, add-ons, promotions, screen configuration and assets. Prices are numeric; unknown values are `null`. Source metadata and development notes should be retained when editing.
 
 ## Initial screen mapping
 
