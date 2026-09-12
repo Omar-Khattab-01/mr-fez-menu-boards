@@ -2,13 +2,13 @@
 
 **[Open the live menu site](https://omar-khattab-01.github.io/mr-fez-menu-boards/)**
 
-**[Preview the four-TV animation](https://omar-khattab-01.github.io/mr-fez-menu-boards/?wall=1)** — choose “Preview wall animation” to watch immediately.
+**[Preview the four-TV animation](https://omar-khattab-01.github.io/mr-fez-menu-boards/?wall=1)** — select a film and choose “Preview wall animation” to watch immediately.
 
 [Watch or download the saj shawarma video](https://omar-khattab-01.github.io/mr-fez-menu-boards/assets/saj-shawarma.mp4)
 
-## Fire to Fez — panoramic animation review
+## Four-film animation collection
 
-[Play the continuous four-TV animation](https://omar-khattab-01.github.io/mr-fez-menu-boards/fire-to-fez/) — 20-second first composite, moving left to right, with separate downloads for TVs 1–4 on the preview page. Each file contains a different quarter of one master (960 × 540, 30 fps, 600 frames). This animation is now used by the live menu rotation. The generated scene was composited onto the panoramic canvas; it is not an exact shot-for-shot realization of the storyboard. [Production notes](dist/fire-to-fez/production-notes.md).
+[Watch all four films and download TV sections](https://omar-khattab-01.github.io/mr-fez-menu-boards/fire-to-fez/) — four 20-second films, moving left to right, with separate downloads for TVs 1–4 on the preview page. Each file contains a different quarter of one master (960 × 540, 30 fps, 600 frames). All four films are used by the live menu rotation. The generated scene was composited onto the panoramic canvas; it is not an exact shot-for-shot realization of the storyboard. [Production notes](dist/fire-to-fez/production-notes.md).
 
 ## Direct screen links
 
@@ -17,9 +17,9 @@
 - [TV 3 — Poutines & sides](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=3)
 - [TV 4 — Family meals](https://omar-khattab-01.github.io/mr-fez-menu-boards/?screen=4)
 
-These links open the screen-only views. Each physical position plays its corresponding quarter of the Fire to Fez panorama, moving left to right. The labels above reflect the initial menu mapping.
+These links open the screen-only views. Each physical position plays its corresponding quarter of the current panorama, moving left to right. The labels above reflect the initial menu mapping.
 
-Enable automatic date/time on all players. The rotation is 40 seconds of menu → 20 seconds of Fire to Fez, repeating every minute. Each TV receives a different synchronized video section. The flat background flames and repeated full-frame sandwich clip are no longer in the default rotation. Synchronization follows device clocks and is not frame locked. [Setup and timing adjustment](dist/sync-setup.md).
+Enable automatic date/time on all players. The rotation is 40 seconds of menu → 20 seconds of animation, with a different film each minute. The order is Fire to Fez → Ember Carving → Saj Orbit → Platter Cascade, repeating every four minutes. The three new films include moving fire along the bottom of the whole wall. Each TV receives a different synchronized video section. The flat background flames and repeated full-frame sandwich clip are no longer in the default rotation. Synchronization follows device clocks and is not frame locked. [Setup and timing adjustment](dist/sync-setup.md).
 
 ## About
 

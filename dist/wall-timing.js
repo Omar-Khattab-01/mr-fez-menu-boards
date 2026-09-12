@@ -30,6 +30,10 @@ export function animationSettings(value = {}) {
       new Set(settings.video.screenSources).size!==4 || !settings.video.screenSources.every(localVideo))) {
     throw new Error('Panoramic video needs four distinct local MP4 screen sections.');
   }
+  if(settings.playlist!==undefined && (!Array.isArray(settings.playlist)||settings.playlist.length<1||settings.playlist.length>12)) throw new Error('Playlist needs 1–12 films.');
+  for(const film of settings.playlist||[]) {
+    if(typeof film.title!=='string'||!film.title.trim()||!localVideo(film.src)||film.durationSeconds!==settings.video.durationSeconds||!Array.isArray(film.screenSources)||film.screenSources.length!==4||new Set(film.screenSources).size!==4||!film.screenSources.every(localVideo)) throw new Error('Every film needs a title, matching duration and four distinct screen sections.');
+  }
   return settings;
 }
 
@@ -73,11 +77,14 @@ export function presentationPhase(nowMs, value) {
   const quiet = settings.quietSeconds * 1000;
   if(settings.mode==='panoramic-video') {
     const duration=settings.video.durationSeconds*1000;
+    const count=settings.playlist?.length||1;
+    const cycle=Math.floor((nowMs-settings.epochMs)/(quiet+duration));
+    const clipIndex=((cycle%count)+count)%count;
     const elapsed=((nowMs-settings.epochMs)%(quiet+duration)+quiet+duration)%(quiet+duration);
     if(!settings.enabled||!settings.video.enabled) return {kind:'quiet',remainingMs:0,videoTime:0,flameNow:settings.epochMs};
     return elapsed<quiet
-      ? {kind:'quiet',remainingMs:quiet-elapsed,videoTime:0,flameNow:settings.epochMs}
-      : {kind:'video',remainingMs:quiet+duration-elapsed,videoTime:(elapsed-quiet)/1000,flameNow:settings.epochMs};
+      ? {kind:'quiet',remainingMs:quiet-elapsed,videoTime:0,flameNow:settings.epochMs,clipIndex}
+      : {kind:'video',remainingMs:quiet+duration-elapsed,videoTime:(elapsed-quiet)/1000,flameNow:settings.epochMs,clipIndex};
   }
   const flame = settings.effectSeconds * 1000;
   const clip = settings.video?.enabled ? settings.video.durationSeconds * 1000 : 0;
@@ -90,8 +97,9 @@ export function presentationPhase(nowMs, value) {
   return { kind:'video', remainingMs:total-elapsed, videoTime:(elapsed-quiet-flame-quiet)/1000, flameNow:settings.epochMs };
 }
 
-export function videoSource(value, physicalPosition) {
+export function videoSource(value, physicalPosition, clipIndex=0) {
   const config=animationSettings(value);
   if(!Number.isInteger(physicalPosition)||physicalPosition<1||physicalPosition>4) throw new Error('TV position must be 1–4.');
-  return config.mode==='panoramic-video'?config.video.screenSources[physicalPosition-1]:config.video?.src;
+  const film=config.playlist?.[clipIndex]||config.video;
+  return config.mode==='panoramic-video'?film.screenSources[physicalPosition-1]:film?.src;
 }

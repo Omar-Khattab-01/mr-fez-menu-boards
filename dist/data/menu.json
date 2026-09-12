@@ -962,6 +962,52 @@
         "fire-to-fez/fire-to-fez-tv-3.mp4",
         "fire-to-fez/fire-to-fez-tv-4.mp4"
       ]
-    }
+    },
+    "playlist": [
+      {
+        "title": "Fire to Fez",
+        "src": "fire-to-fez/fire-to-fez-panorama.mp4",
+        "durationSeconds": 20,
+        "screenSources": [
+          "fire-to-fez/fire-to-fez-tv-1.mp4",
+          "fire-to-fez/fire-to-fez-tv-2.mp4",
+          "fire-to-fez/fire-to-fez-tv-3.mp4",
+          "fire-to-fez/fire-to-fez-tv-4.mp4"
+        ]
+      },
+      {
+        "title": "Ember Carving",
+        "src": "fire-to-fez/ember-carving-panorama.mp4",
+        "durationSeconds": 20,
+        "screenSources": [
+          "fire-to-fez/ember-carving-tv-1.mp4",
+          "fire-to-fez/ember-carving-tv-2.mp4",
+          "fire-to-fez/ember-carving-tv-3.mp4",
+          "fire-to-fez/ember-carving-tv-4.mp4"
+        ]
+      },
+      {
+        "title": "Saj Orbit",
+        "src": "fire-to-fez/saj-orbit-panorama.mp4",
+        "durationSeconds": 20,
+        "screenSources": [
+          "fire-to-fez/saj-orbit-tv-1.mp4",
+          "fire-to-fez/saj-orbit-tv-2.mp4",
+          "fire-to-fez/saj-orbit-tv-3.mp4",
+          "fire-to-fez/saj-orbit-tv-4.mp4"
+        ]
+      },
+      {
+        "title": "Platter Cascade",
+        "src": "fire-to-fez/platter-cascade-panorama.mp4",
+        "durationSeconds": 20,
+        "screenSources": [
+          "fire-to-fez/platter-cascade-tv-1.mp4",
+          "fire-to-fez/platter-cascade-tv-2.mp4",
+          "fire-to-fez/platter-cascade-tv-3.mp4",
+          "fire-to-fez/platter-cascade-tv-4.mp4"
+        ]
+      }
+    ]
   }
 }

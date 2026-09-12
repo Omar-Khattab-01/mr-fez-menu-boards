@@ -14,7 +14,7 @@ Open each link on the corresponding device. Enable automatic date/time on every 
 
 ## Timing
 
-Default schedule: 40 seconds of menu → 20 seconds of panoramic video, repeating every 60 seconds. All four files have 600 frames at 30 fps. Players use the same UTC epoch; late joins and resumed tabs seek to the current shared video time. Each video section is 960 × 540, scaled to fit its TV.
+Default schedule: 40 seconds of menu → 20 seconds of panoramic video, with a different film every 60 seconds. The four-film playlist repeats every 240 seconds. All four files have 600 frames at 30 fps. Players use the same UTC epoch; late joins and resumed tabs seek to the current shared video time. Each video section is 960 × 540, scaled to fit its TV.
 
 This is **clock-aligned, best-effort synchronization**, not network clock synchronization or frame-locked output. GitHub Pages hosts static files; there is no server coordinating device clocks, device status, or frame presentation. Device clock errors, browser throttling, refresh rates and display latency can produce visible differences. The app cannot verify that your physical TVs are synchronized. For precise alignment across panel seams, a single computer with four display outputs or a synchronized signage system is the next step. Physical bezel compensation is not implemented.
 
@@ -22,9 +22,9 @@ For a small fixed timing difference, add `&offsetMs=100` to advance a player by 
 
 ## Controls
 
-The Animation view lets you enable or disable the rotation and set the quiet interval (10–600 seconds). The 20-second video duration matches the exported files. Configuration lives in `animation` in `data/menu.json`; `video.screenSources` lists the four files from left to right. Export and publish to share changes, then refresh all four TVs.
+The Animation view lets you enable or disable the rotation and set the quiet interval (10–600 seconds). The 20-second video duration matches the exported files. Configuration lives in `animation` in `data/menu.json`; `playlist` lists the films in order, and each film’s `screenSources` lists its four files from left to right. All films currently last 20 seconds. Export and publish to share changes, then refresh all four TVs.
 
-“Preview wall animation” starts a local demonstration. Remote TVs continue following the shared schedule.
+Select a film, then “Preview wall animation” starts a local demonstration. Remote TVs continue following the shared schedule.
 `?screen=1&motion=off` shows a static menu on that device. Reduced-motion preferences also suppress effects. Set the same motion preference on all players. `&motion=on` explicitly overrides the device's reduced-motion preference when an operator intentionally wants animation.
 
 ## Artwork and scope

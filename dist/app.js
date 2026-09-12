@@ -1,4 +1,4 @@
-import { animationSettings, wallPhase, presentationPhase, videoSource } from './wall-timing.js';
+import { animationSettings, wallPhase, presentationPhase, videoSource } from './wall-timing.js?v=rotation-4';
 const app=document.querySelector('#app');
 let menu,view='boards',selected=1,editing=null;
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -6,7 +6,7 @@ const money=n=>n===null||n===undefined?'—':'$'+Number(n).toFixed(2);
 const screenOptions=(value)=>menu.screens.map(s=>`<option value="${s.id}" ${s.id===Number(value)?'selected':''}>TV ${s.physicalPosition} · ${e(s.name)}</option>`).join('');
 const param=new URLSearchParams(location.search);const display=param.has('screen');
 if(param.has('wall')) view='wall';
-let animationFrame=0, demoStartedAt=null, demoKind='flame';
+let animationFrame=0, demoStartedAt=null, demoKind='flame', demoClipIndex=0;
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const rawOffset=Number(param.get('offsetMs')||0);
 const clockOffset=Number.isFinite(rawOffset)?Math.max(-5000,Math.min(5000,rawOffset)):0;
@@ -20,7 +20,7 @@ function bindEditor(){app.querySelector('#cancel').onclick=()=>{editing=null;ren
 function renderNotes(){app.innerHTML=`<div class="heading"><div><h1>Source notes</h1><p class="muted">The photos are reference material. Every displayed word and price is application data.</p></div></div><div class="notes-grid"><div class="panel"><h2>Confirm before production</h2><ul>${menu.developmentNotes.map(n=>`<li>${e(n.text)}</li>`).join('')}</ul></div><div><div class="panel"><h2>Assets needed</h2><p class="muted">No screenshot crops are used as production artwork. Temporary photo spaces mark the missing assets.</p><ul><li>Official Mr. Fez logo and fez icon in SVG or transparent PNG.</li><li>Original food photography for all ${menu.items.length} products, including family platters.</li><li>Drink photography and exact included drink options, if displayed later.</li><li>Original family meal promotional artwork and confirmed Instagram handle.</li><li>Brand font files or font names, and official colour values.</li></ul><a href="assets-needed.md">Read asset checklist</a></div><div class="panel"><h2>Visual direction</h2><p>Red and white product blocks on charcoal; condensed uppercase headings, prominent prices, cutout food photography and simple size-price rows. The prototype keeps these recognizable patterns with consistent spacing.</p><p class="muted">Fonts and colours are approximations. The blue cast on TV 1 is not treated as a confirmed brand colour.</p></div><div class="panel"><h2>Extraction record</h2><a href="extraction.md">Full transcription and screen hierarchy</a> · <a href="data/menu.json">Original seed data</a></div></div></div>`;}
 function validate(m){animationSettings(m.animation);const fail=t=>{throw Error(t)};if(m.schemaVersion!==1||!m.brand?.name||!m.brand.colours||!Array.isArray(m.items)||!Array.isArray(m.screens)||m.screens.length!==4)fail('Expected a version 1 menu with four screens.');if(!Array.isArray(m.assets)||!Array.isArray(m.promotions)||!Array.isArray(m.developmentNotes))fail('Missing assets, promotions or notes.');const ids=new Set(m.screens.map(s=>s.id));if(ids.size!==4||new Set(m.screens.map(s=>s.physicalPosition)).size!==4||m.screens.some(s=>![1,2,3,4].includes(s.physicalPosition)||!['columns','two-column','two-row','family'].includes(s.layout)||typeof s.name!=='string'))fail('Invalid screen mapping or layout.');const price=p=>p===null||(typeof p==='number'&&Number.isFinite(p)&&p>=0);if(new Set(m.items.map(i=>i.id)).size!==m.items.length)fail('Product IDs must be unique.');for(const i of m.items){if(!i.id||typeof i.name!=='string'||!i.name.trim()||typeof i.category!=='string'||typeof i.description!=='string'||!ids.has(i.screenId)||!Number.isFinite(i.sortOrder)||!price(i.price)||typeof i.visible!=='boolean'||typeof i.available!=='boolean'||!Array.isArray(i.variants)||!i.source?.file)fail('Invalid product: '+i.id);for(const v of i.variants)if(typeof v.label!=='string'||!price(v.price))fail('Invalid size price.');if(i.combo&&(!price(i.combo.priceDelta)||typeof i.combo.label!=='string'))fail('Invalid combo.');}for(const p of m.promotions)if(!ids.has(p.screenId)||typeof p.text!=='string')fail('Invalid promotion.');for(const a of m.assets)if(a.src&&!/^(https:\/\/|\.?\/?assets\/)/.test(a.src))fail('Asset URLs must use HTTPS or the local assets folder.');for(const c of Object.values(m.brand.colours))if(!/^#[0-9a-f]{6}$/i.test(c))fail('Colours must be six-digit hex values.');return true;}
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;editing=null;render()});document.querySelector('#export').onclick=()=>{const blob=new Blob([JSON.stringify(menu,null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mr-fez-menu.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);notify('Menu exported.');};
-try{const r=await fetch('data/menu.json');if(!r.ok)throw Error('Menu data could not be loaded.');menu=await r.json();validate(menu);render();}catch(err){app.innerHTML=`<div class="panel"><h1>Menu unavailable</h1><p>${e(err.message)}</p><button onclick="location.reload()">Try again</button></div>`;}
+try{const r=await fetch('data/menu.json',{cache:'no-store'});if(!r.ok)throw Error('Menu data could not be loaded.');menu=await r.json();validate(menu);render();}catch(err){app.innerHTML=`<div class="panel"><h1>Menu unavailable</h1><p>${e(err.message)}</p><button onclick="location.reload()">Try again</button></div>`;}
 
 
 function effectViewport(screen) {
@@ -40,14 +40,15 @@ function effectViewport(screen) {
 
 function renderWall() {
   const config=animationSettings(menu.animation);
+  const films=config.playlist||[config.video];
   const ordered=[...menu.screens].sort((a,b)=>a.physicalPosition-b.physicalPosition);
   app.innerHTML=`<div class="heading"><div><h1>Shawarma animations across four TVs</h1>
-    <p class="muted">Fire to Fez travels left to right across four TVs, with time to read the menus between showings.</p></div>
-    <div class="actions">${config.mode==='flame-parade'?'<button id="demo">Preview flames</button>':''}${config.video?.enabled?'<button id="demo-video" class="primary">Preview wall animation</button>':''}<button id="wall-fullscreen">Full screen</button></div></div>
+    <p class="muted">Films rotate across four TVs from left to right, with time to read the menus between showings.</p></div>
+    <div class="actions">${config.playlist?`<select id="film-choice" aria-label="Preview film">${films.map((film,i)=>`<option value="${i}">${e(film.title)}</option>`).join('')}</select>`:''}${config.mode==='flame-parade'?'<button id="demo">Preview flames</button>':''}${config.video?.enabled?'<button id="demo-video" class="primary">Preview wall animation</button>':''}<button id="wall-fullscreen">Full screen</button></div></div>
     <div class="wall-labels">${ordered.map(s=>`<a href="?screen=${s.physicalPosition}">TV ${s.physicalPosition}${s.physicalPosition===1?' · Left':s.physicalPosition===4?' · Right':''}</a>`).join('')}</div>
     <div class="wall-preview">${ordered.map(effectViewport).join('')}</div>
     <div class="caption"><span id="animation-status" role="status">Shared TV schedule</span><span>One panoramic scene · A different section on each TV</span></div>
-    ${config.video?.src?`<div class="panel"><h2>Fire to Fez · Mr. Fez</h2><video class="clip-player" style="${config.mode==='panoramic-video'?'aspect-ratio:64/9;max-width:none':''}" controls playsinline preload="metadata" src="${e(config.video.src)}" aria-label="Play the saj shawarma video with Mr. Fez logo"></video><p class="muted"><a href="${e(config.video.src)}" download>Download the video</a> · ${config.video.durationSeconds} seconds · Includes your logo</p></div>`:''}
+    ${config.video?.src?`<div class="panel"><h2 id="film-title">${e(films[0]?.title||'Fire to Fez')} · Mr. Fez</h2><video class="clip-player" style="${config.mode==='panoramic-video'?'aspect-ratio:64/9;max-width:none':''}" controls playsinline preload="metadata" src="${e(config.video.src)}" aria-label="Play the saj shawarma video with Mr. Fez logo"></video><p class="muted"><a id="film-download" href="${e(config.video.src)}" download>Download the video</a> · ${config.video.durationSeconds} seconds · Includes your logo</p></div>`:''}
     <div class="panel"><h2>Animation settings</h2><form id="animation-settings">
     <label class="check"><input type="checkbox" name="enabled" ${config.enabled?'checked':''}>Enable animation rotation</label>
     ${config.video?`<label class="check"><input type="checkbox" name="videoEnabled" ${config.video.enabled?'checked':''}>Include panoramic animation</label>`:''}
@@ -58,8 +59,14 @@ function renderWall() {
     </form></div>
     <div class="panel"><h2>Connect your screens</h2><ol><li>Open each TV link above on its matching physical screen, with TV 1 on the left.</li><li>Enable automatic date and time on every player. They join the same schedule even if opened at different times.</li><li>Use full-screen mode and keep each screen page visible. Set every TV to the same aspect ratio and disable overscan.</li></ol>
     <p class="muted">The preview button runs a local demo; it does not trigger the remote TVs. Separate devices follow their clocks, so this is approximate synchronization rather than frame-locked video. For a seamless physical installation, use one computer driving all four displays or a synchronized signage player. <a href="sync-setup.md">Setup and timing adjustment</a></p></div>`;
-  if(app.querySelector('#demo'))app.querySelector('#demo').onclick=()=>{demoKind='flame';demoStartedAt=Date.now();startEffects()};
-  if(app.querySelector('#demo-video'))app.querySelector('#demo-video').onclick=()=>{demoKind='video';demoStartedAt=Date.now();startEffects()};
+  if(app.querySelector('#demo'))app.querySelector('#demo').onclick=()=>{demoKind='flame', demoClipIndex=0;demoStartedAt=Date.now();startEffects()};
+  if(app.querySelector('#demo-video'))app.querySelector('#demo-video').onclick=()=>{demoKind='video';demoClipIndex=Number(app.querySelector('#film-choice')?.value||0);demoStartedAt=Date.now();startEffects()};
+  if(app.querySelector('#film-choice'))app.querySelector('#film-choice').onchange=event=>{
+    const film=films[Number(event.target.value)];
+    const player=app.querySelector('.clip-player');player.pause();player.src=film.src;
+    app.querySelector('#film-title').textContent=film.title+' · Mr. Fez';
+    app.querySelector('#film-download').href=film.src;
+  };
   app.querySelector('#wall-fullscreen').onclick=()=>app.querySelector('.wall-preview').requestFullscreen?.().catch(()=>notify('Full screen is unavailable in this preview.'));
   app.querySelector('#animation-settings').onsubmit=event=>{
     event.preventDefault();const values=new FormData(event.target);
@@ -81,7 +88,7 @@ function startEffects() {
     const off=param.get('motion')==='off'||(reducedMotion.matches&&param.get('motion')!=='on');
     let now=Date.now()+clockOffset;
     let demo=demoStartedAt!==null;
-    if(demo){const elapsed=Date.now()-demoStartedAt;const duration=demoKind==='video'?(config.video?.durationSeconds||10):config.effectSeconds;if(elapsed>=duration*1000){demoStartedAt=null;demo=false;}else{now=config.epochMs+config.quietSeconds*1000+elapsed+(demoKind==='video'&&config.mode!=='panoramic-video'?(config.quietSeconds+config.effectSeconds)*1000:0);}}
+    if(demo){const elapsed=Date.now()-demoStartedAt;const duration=demoKind==='video'?(config.video?.durationSeconds||10):config.effectSeconds;if(elapsed>=duration*1000){demoStartedAt=null;demo=false;}else{now=config.epochMs+(config.mode==='panoramic-video'?demoClipIndex*(config.quietSeconds+config.video.durationSeconds)*1000:0)+config.quietSeconds*1000+elapsed+(demoKind==='video'&&config.mode!=='panoramic-video'?(config.quietSeconds+config.effectSeconds)*1000:0);}}
     const activeConfig={...config,enabled:config.enabled&&!off};
     const slot=presentationPhase(now,activeConfig);
     const phase=wallPhase(slot.flameNow,activeConfig);
@@ -89,6 +96,8 @@ function startEffects() {
       target.layer.style.opacity=slot.kind==='flame'?phase.opacity:0;
       const video=target.video;
       if(video){
+        const nextSource=videoSource(config,Number(target.layer.parentElement.dataset.position),slot.clipIndex||0);
+        if(video.getAttribute('src')!==nextSource){video.pause();video.style.opacity=0;video.setAttribute('src',nextSource);video.load();target.blocked=false;target.lastCheck=-Infinity;}
         video.muted=true;
         if(slot.kind==='video'&&!target.blocked&&!video.error){
           if(video.readyState>=1&&!video.seeking&&now-target.lastCheck>=250){
@@ -106,7 +115,7 @@ function startEffects() {
         for(const edge of target.edges){edge.style.backgroundPositionX=`${phase.flameDrift}%`;edge.style.setProperty('--flame-scale',phase.flameScale);}
       }
     }
-    const message=off?'Animation off on this device (motion preference).':!config.enabled?'Animation disabled.':demo?'Local demo · remote TVs keep their shared schedule':slot.kind==='video'?`Wall animation · ${Math.ceil(slot.remainingMs/1000)} seconds remaining${targets.some(t=>t.blocked||t.video?.error)?' · Video unavailable on a player; menu retained':''}`:slot.kind==='flame'?`Live flame effect · ${Math.ceil(slot.remainingMs/1000)} seconds remaining`:`Shared schedule · next animation in ${Math.ceil(slot.remainingMs/1000)} seconds`;
+    const message=off?'Animation off on this device (motion preference).':!config.enabled?'Animation disabled.':demo?'Local demo · remote TVs keep their shared schedule':slot.kind==='video'?`${config.playlist?.[slot.clipIndex]?.title||'Wall animation'} · ${Math.ceil(slot.remainingMs/1000)} seconds remaining${targets.some(t=>t.blocked||t.video?.error)?' · Video unavailable on a player; menu retained':''}`:slot.kind==='flame'?`Live flame effect · ${Math.ceil(slot.remainingMs/1000)} seconds remaining`:`Shared schedule · next animation in ${Math.ceil(slot.remainingMs/1000)} seconds`;
     if(status&&message!==lastStatus){status.textContent=message;lastStatus=message;}
     animationFrame=requestAnimationFrame(tick);
   }

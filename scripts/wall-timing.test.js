@@ -63,7 +63,7 @@ test('disabled or absent videos retain the original flame schedule',()=>{
 
 import { readFileSync } from 'node:fs';
 import { videoSource } from '../dist/wall-timing.js';
-const panorama=JSON.parse(readFileSync(new URL('../dist/data/menu.json',import.meta.url))).animation;
+const panorama={...JSON.parse(readFileSync(new URL('../dist/data/menu.json',import.meta.url))).animation,playlist:undefined};
 test('published panorama has one quiet interval and a full 20-second shared clip',()=>{
  const at=t=>presentationPhase(panorama.epochMs+t,panorama);
  assert.equal(at(39999).kind,'quiet');
@@ -81,4 +81,19 @@ test('physical positions select distinct panorama quarters and reject incomplete
   assert.throws(()=>animationSettings({...panorama,video:{...panorama.video,screenSources}}));
  }
  assert.throws(()=>videoSource(panorama,5));
+});
+
+test('four-film rotation selects the same film for late joins and preloads it during the reading break',()=>{
+ const playlist=Array.from({length:4},(_,i)=>({title:`Film ${i}`,durationSeconds:20,src:`fire-to-fez/film-${i}.mp4`,screenSources:[1,2,3,4].map(p=>`fire-to-fez/film-${i}-tv-${p}.mp4`)}));
+ const cfg={...panorama,playlist};
+ for(let i=0;i<4;i++){
+  const quiet=presentationPhase(cfg.epochMs+i*60000,cfg);
+  const playing=presentationPhase(cfg.epochMs+i*60000+43000,cfg);
+  assert.equal(quiet.clipIndex,i); assert.equal(playing.clipIndex,i); assert.equal(playing.videoTime,3);
+  assert.equal(videoSource(cfg,3,playing.clipIndex),playlist[i].screenSources[2]);
+  assert.deepEqual(playing,presentationPhase(cfg.epochMs+i*60000+43000+240000,cfg));
+ }
+ assert.equal(presentationPhase(cfg.epochMs-1,cfg).clipIndex,3);
+ assert.throws(()=>animationSettings({...cfg,playlist:[]}));
+ assert.throws(()=>animationSettings({...cfg,playlist:[{...playlist[0],durationSeconds:10}]}));
 });
