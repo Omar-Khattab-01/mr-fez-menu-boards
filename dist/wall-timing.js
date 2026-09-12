@@ -32,10 +32,13 @@ export function animationSettings(value = {}) {
   }
   if(settings.playlist!==undefined && (!Array.isArray(settings.playlist)||settings.playlist.length<1||settings.playlist.length>12)) throw new Error('Playlist needs 1–12 films.');
   for(const film of settings.playlist||[]) {
-    if(typeof film.title!=='string'||!film.title.trim()||!localVideo(film.src)||film.durationSeconds!==settings.video.durationSeconds||!Array.isArray(film.screenSources)||film.screenSources.length!==4||new Set(film.screenSources).size!==4||!film.screenSources.every(localVideo)) throw new Error('Every film needs a title, matching duration and four distinct screen sections.');
+    if(typeof film.title!=='string'||!film.title.trim()||!localVideo(film.src)||film.durationSeconds!==settings.video.durationSeconds||!Array.isArray(film.screenSources)||film.screenSources.length!==4||new Set(film.screenSources).size!==4||!film.screenSources.every(localVideo)||!['boolean','undefined'].includes(typeof film.enabled)) throw new Error('Every film needs a title, matching duration, an optional enabled setting and four distinct screen sections.');
   }
+  if(settings.playlist?.length&&!settings.playlist.some(film=>film.enabled!==false)) throw new Error('Select at least one film for the rotation.');
   return settings;
 }
+
+const rotationFilms = settings => settings.playlist?.filter(film=>film.enabled!==false) || (settings.video ? [settings.video] : []);
 
 export function wallPhase(nowMs, value) {
   const settings = animationSettings(value);
@@ -77,7 +80,7 @@ export function presentationPhase(nowMs, value) {
   const quiet = settings.quietSeconds * 1000;
   if(settings.mode==='panoramic-video') {
     const duration=settings.video.durationSeconds*1000;
-    const count=settings.playlist?.length||1;
+    const count=rotationFilms(settings).length;
     const cycle=Math.floor((nowMs-settings.epochMs)/(quiet+duration));
     const clipIndex=((cycle%count)+count)%count;
     const elapsed=((nowMs-settings.epochMs)%(quiet+duration)+quiet+duration)%(quiet+duration);
@@ -100,6 +103,6 @@ export function presentationPhase(nowMs, value) {
 export function videoSource(value, physicalPosition, clipIndex=0) {
   const config=animationSettings(value);
   if(!Number.isInteger(physicalPosition)||physicalPosition<1||physicalPosition>4) throw new Error('TV position must be 1–4.');
-  const film=config.playlist?.[clipIndex]||config.video;
+  const film=rotationFilms(config)[clipIndex]||config.video;
   return config.mode==='panoramic-video'?film.screenSources[physicalPosition-1]:film?.src;
 }

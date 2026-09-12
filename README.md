@@ -37,7 +37,7 @@ Requires Python 3; no package installation or build step:
 python3 -m http.server 4173 --directory dist
 ```
 
-Open http://localhost:4173. The menu studio has board previews, an editor, configurable physical screen mapping, source notes, and JSON import/export. A screen-only view is available at `?screen=1` through `?screen=4`, where the number represents the configured physical position. The Full screen button shows the current session's edited board.
+Open http://localhost:4173. The menu studio has board previews, per-screen add/edit/delete controls, unavailable-item overlays, configurable physical screen mapping, animation selection, source notes, and JSON import/export. A screen-only view is available at `?screen=1` through `?screen=4`, where the number represents the configured physical position. The Full screen button shows the current session's edited board.
 
 ## Editing and persistence
 
@@ -45,7 +45,7 @@ This is an initial static prototype hosted on GitHub Pages. Edits apply to memor
 
 To update the hosted starting menu, replace `dist/data/menu.json` with a reviewed export, commit, and push to `main`. GitHub Actions publishes the `dist` folder. New loads receive the updated seed. Open TV pages must reload to receive a newly published version.
 
-Common product fields have a form. The complete structured-data editor also exposes sizes, options, add-ons, promotions, screen configuration and assets. Prices are numeric; unknown values are `null`. Source metadata and development notes should be retained when editing.
+Common product fields have a form. Use **Add item** inside a TV section to create an item on that screen; open an existing item to edit, move, mark unavailable, hide, or delete it. The Animation tab lets you choose which films participate in the rotation. The complete structured-data editor also exposes sizes, options, add-ons, promotions, screen configuration and assets. Prices are numeric; unknown values are `null`. Source metadata and development notes should be retained when editing.
 
 ## Initial screen mapping
 

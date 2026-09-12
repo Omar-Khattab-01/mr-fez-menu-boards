@@ -97,3 +97,13 @@ test('four-film rotation selects the same film for late joins and preloads it du
  assert.throws(()=>animationSettings({...cfg,playlist:[]}));
  assert.throws(()=>animationSettings({...cfg,playlist:[{...playlist[0],durationSeconds:10}]}));
 });
+
+test('only selected films participate in the shared rotation',()=>{
+ const playlist=Array.from({length:4},(_,i)=>({title:`Film ${i}`,enabled:i===1||i===3,durationSeconds:20,src:`fire-to-fez/film-${i}.mp4`,screenSources:[1,2,3,4].map(p=>`fire-to-fez/film-${i}-tv-${p}.mp4`)}));
+ const cfg={...panorama,playlist};
+ assert.equal(videoSource(cfg,2,0),playlist[1].screenSources[1]);
+ assert.equal(videoSource(cfg,2,1),playlist[3].screenSources[1]);
+ assert.equal(presentationPhase(cfg.epochMs+60000,cfg).clipIndex,1);
+ assert.equal(presentationPhase(cfg.epochMs+120000,cfg).clipIndex,0);
+ assert.throws(()=>animationSettings({...cfg,playlist:playlist.map(film=>({...film,enabled:false}))}));
+});
